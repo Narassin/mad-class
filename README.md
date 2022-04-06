@@ -1,2 +1,2 @@
 # mad-class
-All the app that I created using flutter for my Mobile Application Development Class.
+This is the List feature coded for Mobile App using Flutter that was made for MAD Class
