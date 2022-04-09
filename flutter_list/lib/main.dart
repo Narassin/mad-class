@@ -12,56 +12,68 @@ class NApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var questions = 'Select the dragon you want to know about';
+    //var  questions = "Select the dragon you want to know about";
     return MaterialApp(
-      title: 'NList App',
+      title: 'DragonDex',
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('NListing'),
-          ),
-          body: const Center(
-            child:Text(questions),
-            MyStatefulWidget(),
-          )),
+        appBar: AppBar(
+          title: const Text('NDragoDex'),
+        ),
+        body: ListView(children: [
+          promptSection,
+          MyStatefulWidget(),
+        ]),
+      ),
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget{
+Widget promptSection = Container(
+  padding: const EdgeInsets.all(16),
+  child: Row(
+    children: const [
+      Text(
+        'Select a dragon you want to know about:',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Text(data)
+    ],
+  ),
+);
+
+class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget>createState() => _MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget>{
-  String dropdownValue = '001';
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  String dropdownValue = 'one';
 
   @override
-  Widget build(BuildContext context){
-  return DropdownButton<String>(
-    value: dropdownValue,
-    icon: const Icon(Icons.arrow_downward),
-    elevation: 16,
-    style: const TextStyle(color: Color.fromARGB(255, 62, 66, 70),
-    underline: Container(
-      height: 2,
-      color: Colors.blue,
-    ),
-    
-    onChanged: (String? newValue){
-      setState(() {
-        dropdownValue = newValue!;
-      });
-    },
-    
-    items:<String>['001','002', '003']
-    .map<DropdownMenuItem<String>>((String value){
-      return  DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(
+        color: Color.fromARGB(255, 62, 66, 70),
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items: <String>['one', 'two', 'three']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
         );
-    }).toList(),
-    )
-  );
+      }).toList(),
+    );
+  }
 }
