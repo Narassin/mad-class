@@ -2,7 +2,8 @@
 // List app for MAD Class
 
 import 'package:flutter/material.dart';
-import './dragondb.dart';
+//import './dragondb.dart';
+// import './descriptor.dart';
 
 void main() {
   runApp(const NApp());
@@ -13,23 +14,20 @@ class NApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var entry = dragonData;
+    //  var entry = dragonData;
     return MaterialApp(
       title: 'DragonDex',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('NDragoDex'),
         ),
-        body: ListView(children: [
-          promptSection,
-          dropDown(),
-          //Display
-        ]),
+        body: ListView(children: [promptSection, DropDown(), dragoContent]),
       ),
     );
   }
 }
 
+//User Prompter
 Widget promptSection = Container(
   padding: const EdgeInsets.all(16),
   child: Row(children: [
@@ -53,14 +51,15 @@ Widget promptSection = Container(
   ]),
 );
 
-class dropDown extends StatefulWidget {
-  const dropDown({Key? key}) : super(key: key);
+//DropDown Button
+class DropDown extends StatefulWidget {
+  const DropDown({Key? key}) : super(key: key);
 
   @override
-  State<dropDown> createState() => _dropDown();
+  State<DropDown> createState() => _DropDown();
 }
 
-class _dropDown extends State<dropDown> {
+class _DropDown extends State<DropDown> {
   String dropdownValue = '000';
 
   @override
@@ -69,10 +68,8 @@ class _dropDown extends State<dropDown> {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: DropdownButton<String>(
           value: dropdownValue,
-          hint: Container(
-              alignment: Alignment.centerRight,
-              width: 180,
-              child: const Text('Drago Entry No', textAlign: TextAlign.end)),
+          hint: const Text('Drago Entry No', textAlign: TextAlign.end),
+          isExpanded: true,
           elevation: 16,
           style: const TextStyle(
             color: Colors.blueAccent,
@@ -105,3 +102,37 @@ class _dropDown extends State<dropDown> {
         ));
   }
 }
+
+//Content
+Widget dragoContent = Padding(
+  padding: const EdgeInsets.all(16),
+  child: Container(
+    color: Colors.amberAccent,
+    child: Row(
+      children: [
+        Expanded(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Expanded(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                  Text('placeholder',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    'data',
+                    style: TextStyle(color: Colors.grey[500]),
+                  ),
+                ]))
+          ]),
+          Container(
+              padding: const EdgeInsets.only(top: 16),
+              child: const Text(
+                "Description",
+              )),
+        ]))
+      ],
+    ),
+  ),
+);
