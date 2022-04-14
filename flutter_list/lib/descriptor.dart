@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 class Descriptor extends StatelessWidget {
   final String description;
 
-  const Descriptor(this.description, {Key? key}) : super(key: key);
+  Descriptor(this.description);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       description,
-      style: TextStyle(color: Colors.blueGrey[500]),
+      style:
+          TextStyle(color: Colors.blueGrey[500], fontWeight: FontWeight.bold),
       textAlign: TextAlign.justify,
     );
   }
