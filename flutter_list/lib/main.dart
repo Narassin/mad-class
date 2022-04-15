@@ -25,7 +25,7 @@ class _NState extends State<NApp> {
         appBar: AppBar(
           title: const Text('NDragoDex'),
         ),
-        body: ListView(children: [promptSection, DropDown(), dragoContent]),
+        body: ListView(children: [promptSection, DropDown(), NDesc()]),
       ),
     );
   }
@@ -99,37 +99,49 @@ class _DropDown extends State<DropDown> {
 }
 
 //Content
+class NDesc extends StatefulWidget {
+  const NDesc({Key? key}) : super(key: key);
 
-Widget dragoContent = Padding(
-  padding: const EdgeInsets.all(8),
-  child: Container(
-    padding: const EdgeInsets.all(8),
-    color: Colors.amberAccent,
-    child: Row(
-      children: [
-        Expanded(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [
+  @override
+  State<NDesc> createState() => _NDesc();
+}
+
+class _NDesc extends State<NDesc> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        color: Colors.amberAccent,
+        child: Row(
+          children: [
             Expanded(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Descriptor(dragonData[_DropDown.dropdownValue]['entryName']
-                      as String),
-                  Text(
-                    'data',
-                    style: TextStyle(color: Colors.grey[500]),
-                  ),
+                  Row(children: [
+                    Expanded(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                          Descriptor(dragonData[_DropDown.dropdownValue]
+                              ['entryName'] as String),
+                          Text(
+                            'data',
+                            style: TextStyle(color: Colors.grey[500]),
+                          ),
+                        ]))
+                  ]),
+                  Container(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Descriptor(dragonData[_DropDown.dropdownValue]
+                        ['descriptionD'] as String),
+                  )
                 ]))
-          ]),
-          Container(
-            padding: const EdgeInsets.only(top: 16),
-            child: Descriptor(
-                dragonData[_DropDown.dropdownValue]['descriptionD'] as String),
-          )
-        ]))
-      ],
-    ),
-  ),
-);
+          ],
+        ),
+      ),
+    );
+  }
+}
