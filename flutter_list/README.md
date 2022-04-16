@@ -44,4 +44,5 @@ With a general idea of how I want my app to look like, I started coding the main
 * [Basic Writting Syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 * [Flutter Documentation - Write your first App](https://docs.flutter.dev/get-started/codelab)
 * [Dragon Classification Wiki](https://en.wikipedia.org/wiki/Dragon_(Dungeons_%26_Dragons))
+* [Simple state management](https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple)
 
