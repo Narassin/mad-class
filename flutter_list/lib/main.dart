@@ -2,33 +2,41 @@
 // List app for MAD Class
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './dragondb.dart';
 import './descriptor.dart';
 
 void main() {
-  runApp(NApp());
+  runApp(const NApp());
 }
 
-class NApp extends StatefulWidget {
-  @override
-  _NState createState() => _NState();
-}
-
-// const NApp({Key? key}) : super(key: key);
-
-class _NState extends State<NApp> {
+class NApp extends StatelessWidget {
+  const NApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //   return MultiProvider(
+    //     providers: [
+    //       Provider(create: (context) => ),
+
+    //       ChangeNotifierProvider<>(
+    //         create: create)
+
     return MaterialApp(
       title: 'DragonDex',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('NDragoDex'),
         ),
-        body: ListView(children: [promptSection, DropDown(), NDesc()]),
+        body: ListView(children: [promptSection, DropDown()]),
       ),
     );
   }
+}
+
+//Index class
+
+class Nindex extends ChangeNotifier {
+  var indx = 0;
 }
 
 //User Prompter
@@ -70,78 +78,111 @@ class _DropDown extends State<DropDown> {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: DropdownButton<int>(
-          value: dropdownValue,
-          hint: const Text('Drago Entry No', textAlign: TextAlign.end),
-          isExpanded: true,
-          elevation: 16,
-          style: const TextStyle(
-            color: Colors.blueAccent,
-          ),
-          underline: Container(height: 2, color: Colors.blueAccent),
-          onChanged: (int? newValue) {
-            setState(() {
-              dropdownValue = newValue!;
-            });
-          },
-          items: <int>[0, 1, 2, 3, 4, 5, 6, 7, 8]
-              .map<DropdownMenuItem<int>>((int value) {
-            return DropdownMenuItem<int>(
-              value: value,
-              child: Text(
-                "$value",
-                textAlign: TextAlign.center,
+        child: Column(
+          children: [
+            DropdownButton<int>(
+              value: dropdownValue,
+              hint: const Text('Drago Entry No', textAlign: TextAlign.end),
+              isExpanded: true,
+              elevation: 16,
+              style: const TextStyle(
+                color: Colors.blueAccent,
               ),
-            );
-          }).toList(),
+              underline: Container(height: 2, color: Colors.blueAccent),
+              onChanged: (int? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: <int>[0, 1, 2, 3, 4, 5, 6, 7, 8]
+                  .map<DropdownMenuItem<int>>((int value) {
+                return DropdownMenuItem<int>(
+                  value: value,
+                  child: Text(
+                    "$value",
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              }).toList(),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              color: Colors.brown,
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        Row(children: [
+                          Expanded(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                Namedc(dragonData[_DropDown.dropdownValue]
+                                    ['entryName'] as String),
+                                EntryNo(dragonData[_DropDown.dropdownValue]
+                                    ['entryNum'] as String),
+                              ]))
+                        ]),
+                        Container(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Descriptor(dragonData[_DropDown.dropdownValue]
+                              ['descriptionD'] as String),
+                        )
+                      ]))
+                ],
+              ),
+            ),
+          ],
         ));
   }
 }
 
 //Content
-class NDesc extends StatefulWidget {
-  const NDesc({Key? key}) : super(key: key);
+// class NDesc extends StatefulWidget {
+//   const NDesc({Key? key}) : super(key: key);
 
-  @override
-  State<NDesc> createState() => _NDesc();
-}
+//   @override
+//   State<NDesc> createState() => _NDesc();
+// }
 
-class _NDesc extends State<NDesc> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        color: Colors.amberAccent,
-        child: Row(
-          children: [
-            Expanded(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                  Row(children: [
-                    Expanded(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                          Descriptor(dragonData[_DropDown.dropdownValue]
-                              ['entryName'] as String),
-                          Text(
-                            'data',
-                            style: TextStyle(color: Colors.grey[500]),
-                          ),
-                        ]))
-                  ]),
-                  Container(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Descriptor(dragonData[_DropDown.dropdownValue]
-                        ['descriptionD'] as String),
-                  )
-                ]))
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class _NDesc extends State<NDesc> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(8),
+//       child: Container(
+//         padding: const EdgeInsets.all(8),
+//         color: Colors.amberAccent,
+//         child: Row(
+//           children: [
+//             Expanded(
+//                 child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                   Row(children: [
+//                     Expanded(
+//                         child: Column(
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                           Descriptor(dragonData[_DropDown.dropdownValue]
+//                               ['entryName'] as String),
+//                           Text(
+//                             'data',
+//                             style: TextStyle(color: Colors.grey[500]),
+//                           ),
+//                         ]))
+//                   ]),
+//                   Container(
+//                     padding: const EdgeInsets.only(top: 16),
+//                     child: Descriptor(dragonData[_DropDown.dropdownValue]
+//                         ['descriptionD'] as String),
+//                   )
+//                 ]))
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
